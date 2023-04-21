@@ -5,7 +5,7 @@
     <el-divider direction="vertical"></el-divider>
     <span>
       <el-tooltip  placement="top" effect="light">
-        <div slot="content"><el-image style="width: 250px;height: 250px" src="/static/images/WeChatCode.jpg"/></div>
+        <div slot="content"><el-image style="width: 200px;height: 200px" src="https://idea-space-1305173419.cos.ap-guangzhou.myqcloud.com/WeChatCode.jpg"/></div>
         <el-button style="background-color: #ccd7d7;border: 0 ;padding: 0">联系我</el-button>
       </el-tooltip>
     </span>

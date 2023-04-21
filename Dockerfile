@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:latest AS builder
 
 
 #移动当前目录下面的文件到app目录下
@@ -8,9 +8,7 @@ ADD . /app/
 WORKDIR /app
 RUN npm config set registry https://registry.npmmirror.com/
 #安装依赖
-RUN npm install
+RUN npm install && npm run build
 
-#对外暴露的端口
-EXPOSE 8070
-
-CMD ["npm", "start"]
+FROM nginx
+COPY --from=builder /app/dist /usr/share/nginx/html/
