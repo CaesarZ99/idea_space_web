@@ -20,7 +20,7 @@ export default {
 
 <style scoped>
 .el-header, .el-footer {
-  background-color: #ccd7d7;
+  background-color: #f4f6f5;
   color: #333;
   text-align: center;
   line-height: 60px;
