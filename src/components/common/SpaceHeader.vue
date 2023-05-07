@@ -14,10 +14,8 @@
         :visible.sync="innerVisible"
         append-to-body>
       </el-dialog>
-      <uploader></uploader>
+      <uploader :uploadTips="uploadTips" :fileSizeLimit="fileSizeLimit" :acceptFileTypes="acceptFileTypes" @handleAvatarSuccess="changeAvatarUrl"/>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="outerVisible = false">取 消</el-button>
-        <el-button type="primary" @click="outerVisible = false">确定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -25,20 +23,28 @@
 
 <script>
 import SpaceAvatar from "../tools/SpaceAvatar.vue";
-import Uploader from "../tools/Uploader.vue";
+import Uploader from "../tools/AvatarUploader.vue";
 export default {
   name: "SpaceHeader",
   components: {SpaceAvatar,Uploader},
   data() {
     return {
-      circleUrl: "https://idea-space-1305173419.cos.ap-guangzhou.myqcloud.com/HeadSculpture.jpg",
+      circleUrl: this.userInfo.avatarFile.url,
       outerVisible: false,
-      innerVisible: false
+      innerVisible: false,
+      uploadTips: '只能上传 jpg/png/gif 类型文件',
+      // 上传文件限制4MB
+      fileSizeLimit: 4,
+      acceptFileTypes: ['image/jpeg','image/png','image/gif']
     }
 
   },
   methods: {
-
+    changeAvatarUrl(value) {
+      this.outerVisible = false
+      this.circleUrl = value
+      console.log(value)
+    }
   }
 }
 </script>
