@@ -2,9 +2,11 @@
   <el-upload
     class="avatar-uploader"
     :action="api.fileUpload"
+    :show-file-list="true"
     :on-success="handleAvatarSuccess"
     :before-upload="beforeAvatarUpload"
     :on-error="handleError"
+    :data={captcha:this.captcha}
     drag
   >
     <i class="el-icon-upload"></i>
@@ -17,7 +19,7 @@
 import api from "../../api";
 
 export default {
-  props:['uploadTips', 'fileSizeLimit', 'acceptFileTypes'],
+  props:['uploadTips', 'fileSizeLimit', 'acceptFileTypes', 'captcha'],
   computed: {
     api() {
       return api
@@ -30,6 +32,7 @@ export default {
   },
   methods: {
     handleAvatarSuccess(res, file, fileList) {
+      this.$emit("handleAvatarSuccess")
       if (res.code === 0) {
         this.$message.error(res.message);
         this.removeFile(file, fileList)
@@ -37,6 +40,7 @@ export default {
       }
       this.$message.success('上传成功~~~');
       this.$emit("handleAvatarSuccess",res.data)
+      fileList.splice (0,fileList.length)
     },
 
     removeFile(file, fileList) {
@@ -51,6 +55,11 @@ export default {
       const isJPG = this.acceptFileTypes.indexOf(file.type) !== -1;
       const isLt4M = file.size / 1024 / 1024 < this.fileSizeLimit;
 
+      if (!this.captcha) {
+        this.$message.warning('请输入验证码');
+        return false
+      }
+
       if (!isJPG) {
         this.$message.error(this.uploadTips);
       }
@@ -60,7 +69,6 @@ export default {
 
       return isJPG && isLt4M;
     },
-
     handleError(err, file, fileList) {
       this.$message.error('上传出现异常!');
     }

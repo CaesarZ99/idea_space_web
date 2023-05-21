@@ -12,5 +12,6 @@ function getBaseHost() {
 export default {
   // 核心区文件上传 (头像)
   fileUpload: getBaseHost() + mainContext + '/basic/upload',
-  getBasicUserInfo: getBaseHost() + mainContext + '/basic/userInfo'
+  getBasicUserInfo: getBaseHost() + mainContext + '/basic/userInfo',
+  getCaptCha: getBaseHost() + mainContext + '/basic/getCaptCha'
 }
